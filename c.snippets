@@ -50,6 +50,7 @@ for (${4:int} ${2:i} = 0; $2 < ${1:count}; ${3:++$2}) {
 endsnippet
 
 snippet once "Include header once only guard"
+#pragma once
 #ifndef ${1:`!p
 if not snip.c:
 	import random, string
