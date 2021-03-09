@@ -1,0 +1,55 @@
+# A valid snippet should starts with:
+#
+#		snippet trigger_word [ "description" [ options ] ]
+#
+# and end with:
+#
+#		endsnippet
+#
+# Snippet options:
+#
+#		b - Beginning of line.
+#		i - In-word expansion.
+#		w - Word boundary.
+#		r - Regular expression
+#		e - Custom context snippet
+#		A - Snippet will be triggered automatically, when condition matches.
+#
+# Basic example:
+#
+#		snippet emitter "emitter properties" b
+#		private readonly ${1} = new Emitter<$2>()
+#		public readonly ${1/^_(.*)/$1/}: Event<$2> = this.$1.event
+#		endsnippet
+#
+# Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
+
+snippet version "cmake version macro" b
+execute_process(
+    COMMAND git log -1 --format="%H"
+    OUTPUT_VARIABLE GIT_COMMIT_SHA
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+    WORKING_DIRECTORY \$\{CMAKE_SOURCE_DIR\})
+add_definitions(-DGIT_COMMIT_SHA=\$\{GIT_COMMIT_SHA\})
+
+execute_process(
+    COMMAND git log -1 --format="%an"
+    OUTPUT_VARIABLE GIT_COMMIT_AUTHOR
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+    WORKING_DIRECTORY \$\{CMAKE_SOURCE_DIR\})
+add_definitions(-DGIT_COMMIT_AUTHOR=\$\{GIT_COMMIT_AUTHOR\})
+
+execute_process(
+    COMMAND git log -1 --format="%s"
+    OUTPUT_VARIABLE GIT_COMMIT_MESSAGE
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+    WORKING_DIRECTORY \$\{CMAKE_SOURCE_DIR\})
+add_definitions(-DGIT_COMMIT_MESSAGE=\$\{GIT_COMMIT_MESSAGE\})
+
+execute_process(
+    COMMAND git log -1 --format="%ad" --date=iso
+    OUTPUT_VARIABLE GIT_COMMIT_TIME
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+    WORKING_DIRECTORY \$\{CMAKE_SOURCE_DIR\})
+add_definitions(-DGIT_COMMIT_TIME=\$\{GIT_COMMIT_TIME\})
+endsnippet

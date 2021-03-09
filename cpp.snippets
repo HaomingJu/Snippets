@@ -116,5 +116,17 @@ int main(int argc, char** argv)
 	return 0;
 }
 endsnippet
+
+snippet version "输出从Git中提取的提交和版本信息"
+void PrintVersion() {
+  LOG(ERROR) << "GIT_COMMIT_SHA:\t\t" << GIT_COMMIT_SHA;
+  LOG(ERROR) << "GIT_COMMIT_AUTHOR:\t" << GIT_COMMIT_AUTHOR;
+  LOG(ERROR) << "GIT_COMMIT_MESSAGE:\t" << GIT_COMMIT_MESSAGE;
+  LOG(ERROR) << "GIT_COMMIT_TIME:\t" << GIT_COMMIT_TIME;
+  return;
+}
+endsnippet
+
 # vim:ft=snippets:
+
 
