@@ -127,6 +127,45 @@ void PrintVersion() {
 }
 endsnippet
 
+snippet binary_search_custom "自定义二分法查找" b
+/*
+ * 二分查找适用于有序数组
+ * Usage:
+ * int p[10] = {0, 3, 5, 6, 7, 12, 15, 17, 20, 30};
+ * int ret = func(3, p, 0, 9);
+*/
+template <typename T>
+int binary_search_custom(T key, T* ptr, size_t min_index, size_t max_index) {
+  size_t middle_index = (min_index + max_index) / 2;
+
+  /* 要寻找的值key未在范围内*/
+  if (key < ptr[min_index] || key > ptr[max_index]) {
+    return -1;
+  }
+
+  /* 若寻找的值key恰好等于中值*/
+  if (key == ptr[middle_index]) {
+    return middle_index;
+  }
+
+  /* 若范围内仅有两个值了, 则对比哪个边界距离key近*/
+  if ((max_index - min_index) <= 1) {
+    auto diff1 = ptr[max_index] - key;
+    auto diff2 = key - ptr[min_index];
+    return diff1 <= diff2 ? max_index : min_index;
+  }
+
+  /* 若在小范围内, 则递归小范围*/
+  if (key < ptr[middle_index]) {
+    return func(key, ptr, min_index, middle_index);
+  }
+  /* 若在大范围内, 则递归大范围*/
+  if (key > ptr[middle_index]) {
+    return func(key, ptr, middle_index, max_index);
+  }
+};
+endsnippet
+
 # vim:ft=snippets:
 
 
