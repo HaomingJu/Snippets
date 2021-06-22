@@ -58,3 +58,8 @@ snippet abi "[c++11]" b
 add_compile_definitions(_GLIBCXX_USE_CXX11_ABI=0)
 endsnippet
 
+
+snippet pkg_search_module "PkgConfig::xxx" b
+pkg_search_module(HDMAP_MSGS REQUIRED IMPORTED_TARGET hdmap_msgs)
+# PkgConfig::HDMAP_MSGS
+endsnippet
