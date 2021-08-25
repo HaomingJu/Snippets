@@ -1,0 +1,22 @@
+snippet once "头文件避免重复" b
+#pragma once
+endsnippet
+
+snippet main "入口函数" b
+int main(int argc, char* argv[]) {
+	return 0;
+}
+endsnippet
+
+snippet for "传统for循环" b
+for(size_t index index < ${1:Count}; ++index) {
+	${2:TODO}
+}
+endsnippet
+
+snippet for_ele "C++11新语法for循环" b
+for(const auto& ele : ${1: Elements}) {
+	${2:TODO}
+}
+
+endsnippet
