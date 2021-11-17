@@ -1,0 +1,41 @@
+snippet cmake "基础结构" b
+cmake_minimum_required(VERSION ${1:CMAKE_VERSION})
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_INSTALL_PREFIX \$\{CMAKE_SOURCE_DIR\}/install)
+
+project(${2: PROJECT_NAME})
+aux_source_directory(\$\{CMAKE_SOURCE_DIR\} src)
+add_executable(\$\{PROJECT_NAME\} \$\{src\})
+target_link_libraries(\$\{PROJECT_NAME\})
+endsnippet
+
+snippet ros "依赖ROS系统" b
+find_package(PkgConfig REQUIRED)
+pkg_search_module(ROSCPP REQUIRED IMPORTED_TARGET roscpp)
+pkg_search_module(SENSOR_MSGS REQUIRED IMPORTED_TARGET sensor_msgs)
+pkg_search_module(STD_MSGS REQUIRED IMPORTED_TARGET std_msgs)
+pkg_search_module(TF2_MSGS REQUIRED IMPORTED_TARGET tf2_msgs)
+
+include_directories(\$\{ROSCPP_INCLUDE_DIRS\})
+
+target_link_libraries(
+	${1: target_name}
+	PkgConfig::ROSCPP
+	PkgConfig::SENSOR_MSGS
+	PkgConfig::STD_MSGS
+	PkgConfig::TF2_MSGS)
+endsnippet
+
+snippet boost "基本的boost依赖" b
+find_package(Boost REQUIRED system filesystem thread)
+endsnippet
+
+snippet install_files "安装文件" b
+install(FILES ${1: 待安装文件} DESTINATION ${2: 目标路径})
+endsnippet
+
+snippet install_targets "安装目标文件" b
+install(TARGETS ${1: 待安装文件} LIBRARY DESTINATION ${2: 目标路径})
+endsnippet
+
+

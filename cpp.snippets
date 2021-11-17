@@ -3,20 +3,85 @@ snippet once "头文件避免重复" b
 endsnippet
 
 snippet main "入口函数" b
-int main(int argc, char* argv[]) {
+int main(int argc, const char* argv[]) {
 	return 0;
 }
 endsnippet
 
-snippet for "传统for循环" b
-for(size_t index index < ${1:Count}; ++index) {
+snippet forE "C++循环: 元素版本" b
+for(const auto& ele : ${1: Elements}) {
 	${2:TODO}
 }
 endsnippet
 
-snippet for_ele "C++11新语法for循环" b
-for(const auto& ele : ${1: Elements}) {
-	${2:TODO}
+snippet forI "C++循环: 索引版本" b
+for(size_t index = 0; index < ${1: size}; ++index) {
+	${2: TODO}
 }
+endsnippet
 
+snippet forB "C++循环: 迭代器版本" b
+for(const auto& iter = ${1: container}.begin(); iter != $1.end(); ++iter) {
+	${2: TODO}
+}
+endsnippet
+
+snippet cout "标准输出" b
+std::cout << ${1: 输出} << std::endl;
+endsnippet
+
+snippet template "模板" b
+template <typename ${1: Type}>
+endsnippet
+
+snippet try "异常" b
+try {
+	// TODO:
+} catch(const std::exception& e) {
+	// e.what();
+}
+endsnippet
+
+snippet lambda "lambda函数" b
+[&](${1: 参数}){ ${2: TODO} }
+endsnippet
+
+snippet externC "C++包含C头文件" b
+#ifdef __cplusplus
+#extern "C" {
+#endif  //
+
+#include <${1: header_file}>
+
+#ifdef __cplusplus
+}
+#endif  // #extern "C"
+endsnippet
+
+snippet auto "auto类型" b
+const auto& ${1: variable} ;
+endsnippet
+
+snippet sleep_s "程序暂停n秒" b
+// #include <thread>
+// #include <chrono>
+std::this_thread::sleep_for(std::chrono::seconds(${1: 多少秒}));
+endsnippet
+
+snippet sleep_ms "程序暂停n毫秒" b
+// #include <thread>
+// #include <chrono>
+std::this_thread::sleep_for(std::chrono::microseconds(${1: 多少毫秒}));
+endsnippet
+
+snippet sleep_us "程序暂停n微秒" b
+// #include <thread>
+// #include <chrono>
+std::this_thread::sleep_for(std::chrono::microseconds(${1: 多少微秒}));
+endsnippet
+
+snippet sleep_ns "程序暂停n納秒" b
+// #include <thread>
+// #include <chrono>
+std::this_thread::sleep_for(std::chrono::nanoseconds(${1: 多少微秒}));
 endsnippet
