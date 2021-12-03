@@ -4,6 +4,7 @@ endsnippet
 
 snippet main "入口函数" b
 int main(int argc, const char* argv[]) {
+	${1: TODO}
 	return 0;
 }
 endsnippet
@@ -84,4 +85,28 @@ snippet sleep_ns "程序暂停n納秒" b
 // #include <thread>
 // #include <chrono>
 std::this_thread::sleep_for(std::chrono::nanoseconds(${1: 多少微秒}));
+endsnippet
+
+snippet pubPCL "[ros]: 要广播PCL点云类型" b
+#include <pcl_ros/point_cloud.h>
+endsnippet
+
+snippet include_system_head_file "包含头文件" b
+#include <${1}>
+endsnippet
+
+snippet include_project_head_file "包含头文件" b
+#include "${1}"
+endsnippet
+
+snippet pbPraserMsg "protobuf反序列化, 反射" b
+#include <google/protobuf/descriptor.h>
+#include <google/protobuf/dynamic_message.h>
+#include <google/protobuf/message.h>
+
+const Descriptor* descriptor = DescriptorPool::generated_pool()->FindMessageTypeByName(msg->topic_name);
+const Message* proto_type = MessageFactory::generated_factory()->GetPrototype(descriptor);
+Message* message = proto_type->New();
+message->ParseFromString(msg->content);
+// message->DebugPrintf();
 endsnippet
