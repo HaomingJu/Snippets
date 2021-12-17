@@ -110,3 +110,10 @@ Message* message = proto_type->New();
 message->ParseFromString(msg->content);
 // message->DebugPrintf();
 endsnippet
+
+snippet now "当前时间" b
+//#include <chrono>
+//#include <ctime>
+auto time_p = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+tm* now = localtime(&time_p);
+endsnippet

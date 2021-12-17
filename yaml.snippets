@@ -1,0 +1,16 @@
+
+snippet ci_submodule "解决gitlab-CI不能下载子模块代码的问题" b
+
+before_script:
+    - echo "192.168.3.148 git-rd.trunk.tech" >> /etc/hosts
+    - ssh-keyscan -t rsa git-rd.trunk.tech >> ~/.ssh/known_hosts
+    - git submodule init
+    - git submodule update
+
+# 针对Gitlab CI不能下载子模块代码的问题
+# 需要用到gitlab的deploy-key, 需要管理员生成, 并且每个仓库均需要主动加入
+# Settings -> Repository -> Deploy Keys
+# 之后在before_script中使用命令`git submodule init && git submodule update`进行下载
+# 需要提前将生成的deploy-key(id_rsa)写入Docker镜像中, 权限600
+
+endsnippet

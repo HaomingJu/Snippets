@@ -1,9 +1,10 @@
 snippet cmake "基础结构" b
 cmake_minimum_required(VERSION ${1:CMAKE_VERSION})
+project(${2: PROJECT_NAME})
+
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_INSTALL_PREFIX \$\{CMAKE_SOURCE_DIR\}/install)
 
-project(${2: PROJECT_NAME})
 aux_source_directory(\$\{CMAKE_SOURCE_DIR\} src)
 add_executable(\$\{PROJECT_NAME\} \$\{src\})
 target_link_libraries(\$\{PROJECT_NAME\})
@@ -39,3 +40,15 @@ install(TARGETS ${1: 待安装文件} LIBRARY DESTINATION ${2: 目标路径})
 endsnippet
 
 
+
+snippet setGlobalVar "设定全局变量" b
+set(${1: GLOBAL_VAR} \$\{VALUE\} CACHE INTERNAL "")
+endsnippet
+
+snippet proto_gen "cmake中对proto定义文件进行编译" b
+find_package(Protobuf REQUIRED)
+include_directories(\$\{Protobuf_INCLUDE_DIRS\})
+protobuf_generate_cpp(PROTO_SRCS PROTO_HDRS ${1: proto文件})
+protobuf_generate_python(PROTO_PY ${1: proto文件})
+add_library(recordMsg STATIC \$\{PROTO_SRCS\} \$\{PROTO_HDRS\})
+endsnippet
