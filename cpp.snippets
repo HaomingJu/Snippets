@@ -117,3 +117,18 @@ snippet now "当前时间" b
 auto time_p = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
 tm* now = localtime(&time_p);
 endsnippet
+
+snippet rosbag_get_all_topics "获取rosbag包中的所有话题" b
+rosbag::Bag bag("foo.bag");
+rosbag::View view(bag);
+std::vector<const rosbag::ConnectionInfo *> connection_infos = view.getConnections();
+for(auto infoPtr : connection_infos) {
+	infoPtr->topic;
+}
+endsnippet
+
+
+snippet pack "Description" b
+#pragma pack(push, 4) // 4字节对齐
+#pragma pack(pop) // 恢复默认对齐规则
+endsnippet
