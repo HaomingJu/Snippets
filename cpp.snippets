@@ -132,3 +132,57 @@ snippet pack "Description" b
 #pragma pack(push, 4) // 4字节对齐
 #pragma pack(pop) // 恢复默认对齐规则
 endsnippet
+
+
+snippet externC "c++文件中要包含C头文件" b
+/*
+原因: C语言是一个单一名字空间语言, 也不允许重载. C在编译全局中不允许出现同名的变量或者是函数
+*/
+#ifdef __cplusplus
+extern "C" {
+#endif // __cplusplus
+
+#ifdef __cplusplus
+} // extern "C"
+#endif // __cplusplus
+endsnippet
+
+snippet test "Description" b
+
+${1: `!p print(snip.basename)`}
+
+endsnippet
+
+
+snippet class "class .. (class)"
+class ${1:`!p snip.rv = snip.basename or "name"`}
+{
+public:
+	${1/(\w+).*/$1/} (${2:arguments});
+	virtual ~${1/(\w+).*/$1/} ();
+
+private:
+	${0:/* data */}
+};
+endsnippet
+
+snippet regex "正则搜索" b
+#include <regex> // Sine C++11
+std::string find_str;
+std::smatch result;
+std::regex_search(find_str, result, std::regex("^[A-Fa-f0-9]+-[A-Fa-f0-9]+"));
+endsnippet
+
+snippet benchmark "基准测试样例" b
+#include <benchmark/benchmark.h>
+#include <cstdio>
+
+static void BM_printf(benchmark::State& state) {
+for (auto _ : state) {
+    printf("This is test @ printf\n");
+  }
+}
+BENCHMARK(BM_printf);
+
+BENCHMARK_MAIN();
+endsnippet

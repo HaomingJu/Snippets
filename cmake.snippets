@@ -57,6 +57,35 @@ snippet install_targets "安装目标文件" b
 install(TARGETS ${1: 待安装文件} LIBRARY DESTINATION ${2: 目标路径})
 endsnippet
 
+snippet install_deps "安装目标文件的依赖库" b
+install(TARGETS ${TARGET_NAME}
+	RUNTIME_DEPENDENCY_SET PkgConfig::UNWIND
+	LIBRARY DESTINATION lib)
+install(RUNTIME_DEPENDENCY_SET PkgConfig::UNWIND)
+# 将安装所有依赖
+endsnippet
+
+snippet install_dep "有选择性地安装目标文件的依赖库" b
+install(CODE [[
+    file(GET_RUNTIME_DEPENDENCIES
+    LIBRARIES libjian.so
+    RESOLVED_DEPENDENCIES_VAR _r_deps)
+    message("----------_r_deps: ${_r_deps}")
+    foreach(ele ${_r_deps})
+        string(REGEX MATCH ".*libunwind.*" ABOUT_UNWIND ${ele})
+        if(ABOUT_UNWIND)
+            file(INSTALL
+                DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
+                TYPE SHARED_LIBRARY
+                FOLLOW_SYMLINK_CHAIN
+                FILES "${ele}")
+        endif()
+    endforeach(ele ${_r_deps})
+]])
+
+endsnippet
+
+
 
 
 snippet setGlobalVar "设定全局变量" b
@@ -74,7 +103,8 @@ endsnippet
 
 snippet pkg_search_module "pkg查找依赖包" b
 find_package(PkgConfig REQUIRED)
-pkg_search_module(OPENCV REQUIRED IMPORTED_TARGET opencv-3.3.1-dev opencv)
+pkg_search_module(OPENCV REQUIRED IMPORTED_TARGET GLOBAL opencv-3.3.1-dev opencv)
+pkg_search_module(OPENCV QUIET IMPORTED_TARGET GLOBAL opencv-3.3.1-dev opencv)
 endsnippet
 
 
@@ -92,3 +122,5 @@ endsnippet
 snippet abi "gcc4.9/5.0版本差异" b
 -D_GLIBCXX_USE_CXX11_ABI=0
 endsnippet
+
+
