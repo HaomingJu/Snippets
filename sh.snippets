@@ -27,3 +27,12 @@
 snippet bash "sh文件第一行" b
 #!/usr/bin/env bash
 endsnippet
+
+snippet try "try...catch on shell" b
+
+{ # try
+	${1: try commond}
+} || { # catch
+	${2: catch commond}
+}
+endsnippet

@@ -2,7 +2,9 @@ snippet cmake "基础结构" b
 cmake_minimum_required(VERSION ${1:CMAKE_VERSION})
 project(${2: PROJECT_NAME})
 
-set(CMAKE_CXX_STANDARD 11)
+
+set(CMAKE_CXX_STANDARD 11) # -std=c++11
+set(CMAKE_POSITION_INDEPENDENT_CODE ON) # -fPIC
 set(CMAKE_INSTALL_PREFIX \$\{CMAKE_SOURCE_DIR\}/install)
 
 aux_source_directory(\$\{CMAKE_SOURCE_DIR\} src)
@@ -11,20 +13,17 @@ target_link_libraries(\$\{PROJECT_NAME\})
 endsnippet
 
 snippet ros "依赖ROS系统" b
-find_package(PkgConfig REQUIRED)
-pkg_search_module(ROSCPP REQUIRED IMPORTED_TARGET roscpp)
-pkg_search_module(SENSOR_MSGS REQUIRED IMPORTED_TARGET sensor_msgs)
-pkg_search_module(STD_MSGS REQUIRED IMPORTED_TARGET std_msgs)
-pkg_search_module(TF2_MSGS REQUIRED IMPORTED_TARGET tf2_msgs)
 
-include_directories(\$\{ROSCPP_INCLUDE_DIRS\})
+# 关闭测试系统
+set(CATKIN_ENABLE_TESTING OFF)
+# 关闭其他语言生成器, 仅生成cpp/python接口 (http://wiki.ros.org/ROS/EnvironmentVariables#ROS_LANG_DISABLE)
+set(ENV\{ROS_LANG_DISABLE\} "geneus;genlisp;gennodejs")
 
-target_link_libraries(
-	${1: target_name}
-	PkgConfig::ROSCPP
-	PkgConfig::SENSOR_MSGS
-	PkgConfig::STD_MSGS
-	PkgConfig::TF2_MSGS)
+find_package(catkin REQUIRED COMPONENTS
+	roscpp topic_tools roscpp std_msgs)
+
+# $\{catkin_INCLUDE_DIRS\}
+# $\{catkin_LIBRARIES\}
 endsnippet
 
 snippet boost "解决boost依赖" b

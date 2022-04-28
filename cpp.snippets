@@ -3,8 +3,10 @@ snippet once "头文件避免重复" b
 endsnippet
 
 snippet main "入口函数" b
+#include <iostream>
+#include <cstdio>
 int main(int argc, const char* argv[]) {
-	${1: TODO}
+	${1:}
 	return 0;
 }
 endsnippet

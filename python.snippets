@@ -16,3 +16,7 @@ snippet main "__name__ == __main__" b
 if __name__ == "__main__":
 	pass
 endsnippet
+
+snippet regex_demo "正则匹配案例" b
+ret = re.match(r'^.*\s*X-Next-Page:\s*(?P<x_next_page>\d*)\s*.*$', str_head, re.IGNORECASE).group("x_next_page")
+endsnippet
