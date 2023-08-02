@@ -12,5 +12,30 @@ before_script:
 # Settings -> Repository -> Deploy Keys
 # 之后在before_script中使用命令`git submodule init && git submodule update`进行下载
 # 需要提前将生成的deploy-key(id_rsa)写入Docker镜像中, 权限600
+endsnippet
 
+snippet alpine "简易迷你镜像alpine" b
+
+upload:
+  stage: upload
+  image: 192.168.3.248:8081/docker/alpine:latest
+  tags:
+    - amd64
+  only:
+    - tags
+  needs: ["build"]
+  dependencies:
+    - build
+  before_script:
+    - sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories 
+    - apk update
+    - apk add curl
+  script:
+    - cd $CI_PROJECT_DIR/tsim/build/packages
+    - dir=`basename \$CI_PROJECT_DIR`
+    - pkg_name=`ls`
+    - curl -u\$JFROG_USER:\$JFROG_PASSWORD -XPUT
+              "http://192.168.3.248:8081/artifactory/infra/pool/main/\$dir/\$pkg_name;deb.distribution=bionic;deb.component=main;deb.architecture=amd64"
+              -T \$pkg_name
+  when: on_success
 endsnippet
