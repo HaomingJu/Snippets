@@ -109,9 +109,17 @@ endsnippet
 
 snippet CUDA "findCUDA" b
 find_package(CUDA)
-message("CUDA_VERSION: \$\{CUDA_VERSION\}")
-message("CUDA_VERSION_STRING: \$\{CUDA_VERSION_STRING\}")
-# https://cmake.org/cmake/help/latest/module/FindCUDA.html
+message(STATUS "CUDA_VERSION_MAJOR: \$\{CUDA_VERSION_MAJOR\}")
+message(STATUS "CUDA_VERSION_MINOR: \$\{CUDA_VERSION_MINOR\}")
+message(STATUS "CUDA_VERSION: \$\{CUDA_VERSION\}")
+message(STATUS "CUDA_VERSION_STRING: \$\{CUDA_VERSION_STRING\}")
+message(STATUS "CUDA_HAS_FP16: \$\{CUDA_HAS_FP16\}")
+message(STATUS "CUDA_TOOLKIT_ROOT_DIR: \$\{CUDA_TOOLKIT_ROOT_DIR\}")
+message(STATUS "CUDA_SDK_ROOT_DIR: \$\{CUDA_SDK_ROOT_DIR\}")
+message(STATUS "CUDA_INCLUDE_DIRS: \$\{CUDA_INCLUDE_DIRS\}")
+message(STATUS "CUDA_LIBRARIES: \$\{CUDA_LIBRARIES\}")
+message(STATUS "CUDA_CUFFT_LIBRARIES: \$\{CUDA_CUFFT_LIBRARIES\}")
+message(STATUS "CUDA_CUBLAS_LIBRARIES: \$\{CUDA_CUBLAS_LIBRARIES\}")
 endsnippet
 
 snippet EigenERROR "修复编译时error: static assertion failed: OBJECT_ALLOCATED_ON_STACK_IS_TOO_BIG" b
