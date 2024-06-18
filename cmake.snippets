@@ -48,6 +48,10 @@ find_package (Eigen3 3.3 REQUIRED NO_MODULE)
 # https://eigen.tuxfamily.org/dox/TopicCMakeGuide.html
 endsnippet
 
+snippet install_dir "安装目录" b
+install(DIRECTORY ${1: 待安装文件} DESTINATION ${2: 目标路径})
+endsnippet
+
 snippet install_files "安装文件" b
 install(FILES ${1: 待安装文件} DESTINATION ${2: 目标路径})
 endsnippet
@@ -133,4 +137,8 @@ endsnippet
 
 snippet env "cmake调用环境变量" b
 $ENV(PWD)
+endsnippet
+
+snippet ignoreSymbol "实在没有办法了, 忽略没有找到的符号(undefined reference to `uuid_generate@UUID_1.0')" b
+target_link_options(ut_server_component PUBLIC -Wl,-unresolved-symbols=ignore-in-shared-libs)
 endsnippet
